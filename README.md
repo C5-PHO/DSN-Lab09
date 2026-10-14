@@ -2,7 +2,7 @@
 
 Aplicación Flask + boto3 para cargar, listar, visualizar y eliminar imágenes de un bucket privado mediante URLs prefirmadas. El navegador sube el archivo directamente a S3; el backend nunca entrega credenciales AWS. El código cubre el ejercicio 4 y `infra/` contiene las configuraciones de los ejercicios 2 y 3. Los ejercicios de consola y AWS CLI se documentan abajo para ejecutarlos en una cuenta autorizada.
 
-> **Estado:** las pruebas automatizadas validan la lógica local. La creación del bucket y las pruebas reales de AWS requieren una cuenta con permisos y pueden generar cargos. No se incluyen credenciales, capturas ni el informe personal en este repositorio.
+> **Estado:** la lógica local y la integración con un bucket privado de S3 se verificaron el 14 de octubre de 2026. Los recursos de AWS son temporales y pueden generar cargos. No se incluyen credenciales, capturas ni el informe personal en este repositorio.
 
 ## Requisitos
 
@@ -81,6 +81,18 @@ La suite cubre la emisión de URL de 5 minutos, rechazo de PDF y 10 MB, validaci
 6. La consola AWS muestra Block Public Access, SSE-S3, versionado, política HTTPS y regla lifecycle.
 
 Las capturas de AWS, las respuestas de análisis y el video del laboratorio pertenecen al informe personal, no al repositorio público.
+
+## Validación real en AWS (14 de octubre de 2026)
+
+Se creó un bucket privado en `us-east-1` con los tres prefijos, bloqueo total de acceso público, cifrado SSE-S3, versionado y una política que rechaza conexiones HTTP. La regla de ciclo de vida para `originales/` quedó habilitada con transiciones a Standard-IA (30 días) y Glacier Instant Retrieval (90 días), y tratamiento de versiones no actuales. Su **ejecución futura** no se puede demostrar el mismo día de creación.
+
+- Tres PNG de prueba se cargaron y aparecieron en la galería. El objeto inspeccionado reportó `ServerSideEncryption: AES256`.
+- El flujo completo `POST /api/upload-url` → PUT prefirmado a S3 → `POST /api/images/verify` → listado → borrado respondió `200`, `200`, `201`, listado correcto y `200`, respectivamente.
+- La comprobación CORS desde `http://127.0.0.1:3000` respondió `200` y permitió `GET, PUT`; la URL pública sin firma devolvió `403`.
+- Un PDF y una petición de 10 MB fueron rechazados con `400`; una URL de prueba con vencimiento de un segundo devolvió `403` tras caducar. Las URLs emitidas por la aplicación duran 5 minutos (PUT) y 15 minutos (GET), según las pruebas automatizadas.
+- El usuario IAM limitado pudo listar y cargar objetos, pero `DeleteBucket` y `ListBucketVersions` devolvieron `AccessDenied`.
+- Se crearon tres versiones del mismo objeto, se comprobó el *delete marker* y se restauró la versión más reciente eliminando únicamente ese marcador. Las tres versiones de contenido permanecieron intactas.
+- La suite automatizada terminó con **9 pruebas aprobadas**.
 
 ## Limpieza al terminar
 
