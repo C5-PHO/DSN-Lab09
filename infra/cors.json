@@ -1,0 +1,9 @@
+[
+  {
+    "AllowedHeaders": ["Content-Type", "x-amz-server-side-encryption"],
+    "AllowedMethods": ["GET", "PUT"],
+    "AllowedOrigins": ["http://127.0.0.1:3000", "http://localhost:3000"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 300
+  }
+]
