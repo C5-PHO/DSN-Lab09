@@ -80,7 +80,7 @@ La suite cubre la emisión de URL de 5 minutos, rechazo de PDF y 10 MB, validaci
 5. El código fuente y las solicitudes de red no muestran Access Keys; el PUT del archivo va al endpoint de S3, no al backend.
 6. La consola AWS muestra Block Public Access, SSE-S3, versionado, política HTTPS y regla lifecycle.
 
-La captura de la aplicación está en [`evidencias/evidencia1.png`](evidencias/evidencia1.png): muestra una imagen JPG cargada y validada en la galería privada. No contiene credenciales ni URLs prefirmadas visibles. Esta captura no sustituye la demostración de permisos, versionado y ciclo de vida en la consola de AWS. Las respuestas de análisis y el video del laboratorio pertenecen al informe personal, no al repositorio público.
+El [índice de evidencias](evidencias/README.md) reúne la captura de carga validada en la galería y las capturas de S3, IAM, cifrado, HTTPS, CORS, versionado y lifecycle. No contienen credenciales ni URLs prefirmadas visibles. Cada captura indica qué demuestra y sus límites; la configuración de lifecycle no equivale a una transición ya ejecutada. Las respuestas de análisis y el video del laboratorio pertenecen al informe personal, no al repositorio público.
 
 ## Validación real en AWS (14 de octubre de 2026)
 
