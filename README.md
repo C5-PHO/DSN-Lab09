@@ -2,7 +2,7 @@
 
 Aplicación Flask + boto3 para cargar, listar, visualizar y eliminar imágenes de un bucket privado mediante URLs prefirmadas. El navegador sube el archivo directamente a S3; el backend nunca entrega credenciales AWS. El código cubre el ejercicio 4 y `infra/` contiene las configuraciones de los ejercicios 2 y 3. Los ejercicios de consola y AWS CLI se documentan abajo para ejecutarlos en una cuenta autorizada.
 
-> **Estado:** la lógica local y la integración con un bucket privado de S3 se verificaron el 14 de octubre de 2026. Los recursos de AWS son temporales y pueden generar cargos. No se incluyen credenciales, capturas ni el informe personal en este repositorio.
+> **Estado:** la lógica local y la integración con un bucket privado de S3 se verificaron el 14 de octubre de 2026. Los recursos de AWS son temporales y pueden generar cargos. No se incluyen credenciales ni el informe personal en este repositorio.
 
 ## Requisitos
 
@@ -80,7 +80,7 @@ La suite cubre la emisión de URL de 5 minutos, rechazo de PDF y 10 MB, validaci
 5. El código fuente y las solicitudes de red no muestran Access Keys; el PUT del archivo va al endpoint de S3, no al backend.
 6. La consola AWS muestra Block Public Access, SSE-S3, versionado, política HTTPS y regla lifecycle.
 
-Las capturas de AWS, las respuestas de análisis y el video del laboratorio pertenecen al informe personal, no al repositorio público.
+La captura de la aplicación está en [`evidencias/evidencia1.png`](evidencias/evidencia1.png): muestra una imagen JPG cargada y validada en la galería privada. No contiene credenciales ni URLs prefirmadas visibles. Esta captura no sustituye la demostración de permisos, versionado y ciclo de vida en la consola de AWS. Las respuestas de análisis y el video del laboratorio pertenecen al informe personal, no al repositorio público.
 
 ## Validación real en AWS (14 de octubre de 2026)
 
